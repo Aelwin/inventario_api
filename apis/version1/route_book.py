@@ -1,5 +1,5 @@
 from http.client import HTTPException
-from fastapi import APIRouter, status
+from fastapi import APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 from fastapi import Depends
 from typing import List
