@@ -31,3 +31,9 @@ def test_get_all_authors(client) :
     assert len(response.json()) == 1 # Sólo estoy creando un Autor en estos test
     assert response.json()[0]["id"] == 1
     assert response.json()[0]["nombre"] == nombre
+
+def test_update_author(client) :
+    data = {"nombre": "Otro nombre"}
+    response = client.put("/autores/update/1", json.dumps(data))
+    assert response.status_code == 200
+    assert response.json()["msg"] == "Autor actualizado correctamente."    

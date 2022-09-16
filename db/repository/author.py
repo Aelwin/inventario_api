@@ -14,3 +14,11 @@ def recuperarAutor(autor_id: int, db: Session) :
 
 def recuperarAutores(db: Session) :
     return db.query(Autor).all()
+
+def actualizarAutor(autor_id: int, autor: AuthorCreate, db: Session) :
+    existing_author = db.query(Autor).filter(Autor.id == autor_id)
+    if not existing_author.first():
+        return 0    
+    existing_author.update(autor.__dict__)
+    db.commit()
+    return 1

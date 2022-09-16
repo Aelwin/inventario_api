@@ -10,7 +10,7 @@ book = {
     "editorial": "NOVA"
 }
 
-def test_create_book(client):    
+def test_create_book(client):
     data = book
     response = client.post("/libros/", json.dumps(data))
     assert response.status_code == 200 
