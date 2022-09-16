@@ -1,1 +1,1 @@
-API para la gestión de un inventario de libros
+API para la gestión de un inventario de libros con los CRUD de libros y autores
