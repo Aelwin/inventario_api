@@ -21,4 +21,3 @@ class Libro(Base):
     valoracion = Column(Integer)
     fecha_inicio_lectura = Column(Date)
     fecha_fin_lectura = Column(Date)
-

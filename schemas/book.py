@@ -1,6 +1,8 @@
 from datetime import date
 from pydantic import BaseModel
 
+from core.enums.enums import Formato, Idioma
+
 class BookCreate(BaseModel):
     titulo: str
     precio: float | None
@@ -12,8 +14,8 @@ class BookCreate(BaseModel):
     fecha_compra: date | None
     observaciones: str | None
     categoria: str | None
-    formato: str
-    idioma: str
+    formato: Formato
+    idioma: Idioma
     saga: str | None
     valoracion: int | None
     fecha_inicio_lectura: date | None
