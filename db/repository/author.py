@@ -22,3 +22,11 @@ def actualizarAutor(autor_id: int, autor: AuthorCreate, db: Session) :
     existing_author.update(autor.__dict__)
     db.commit()
     return 1
+
+def eliminarAutor(autor_id: int, db: Session) :
+    existing_author = db.query(Autor).filter(Autor.id == autor_id)
+    if not existing_author.first():
+        return 0    
+    existing_author.delete(synchronize_session=False)
+    db.commit()
+    return 1
