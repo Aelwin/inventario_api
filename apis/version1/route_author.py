@@ -9,7 +9,7 @@ from db.repository.author import crearAutor, recuperarAutor, recuperarAutores, a
 
 router = APIRouter()
 
-@router.post("/")
+@router.post("/crear/")
 def crear_autor(autor: AuthorCreate, db: Session = Depends(get_db)):
     autor = crearAutor(autor = autor, db = db)
     return autor
@@ -26,7 +26,7 @@ def recuperar_autor(autor_id : int, db: Session = Depends(get_db)) :
 def recuperar_autores(db: Session = Depends(get_db)) :
     return recuperarAutores(db)
 
-@router.put("/update/{autor_id}")
+@router.put("/actualizar/{autor_id}")
 def actualizar_autor(autor_id: int, autor: AuthorCreate, db: Session = Depends(get_db)) :
     message = actualizarAutor(autor_id = autor_id, autor = autor, db = db)
     if not message:
@@ -34,7 +34,7 @@ def actualizar_autor(autor_id: int, autor: AuthorCreate, db: Session = Depends(g
             detail=f"Autor con id {autor_id} no encontrado")
     return {"msg":"Autor actualizado correctamente."}
 
-@router.delete("/delete/{autor_id}")
+@router.delete("/eliminar/{autor_id}")
 def eliminar_autor(autor_id: int, db: Session = Depends(get_db)) :
     message = eliminarAutor(autor_id = autor_id, db = db)
     if not message:
