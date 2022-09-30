@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import Session
 
 from db.models.book import Libro
 from schemas.book import BookCreate
@@ -11,10 +11,10 @@ def crearLibro(libro: BookCreate, db: Session) :
     return libro
 
 def recuperarLibro(id: int, db: Session):
-    return db.query(Libro).options(joinedload(Libro.autores)).filter(Libro.id == id).first()
+    return db.query(Libro).filter(Libro.id == id).first()
 
 def recuperarLibros(db: Session) :
-    return db.query(Libro).options(joinedload(Libro.autores)).all()
+    return db.query(Libro).all()
 
 def actualizarLibro(libro_id: int, libro: BookCreate, db: Session) :
     existing_book = db.query(Libro).filter(Libro.id == libro_id)
