@@ -1,7 +1,8 @@
-from email.policy import default
 from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy.orm import relationship
 
 from db.base_class import Base
+from db.models.autor_libros import Autor_Libros
 
 class Libro(Base):
     id = Column(Integer, primary_key = True, index = True)
@@ -21,3 +22,4 @@ class Libro(Base):
     valoracion = Column(Integer)
     fecha_inicio_lectura = Column(Date)
     fecha_fin_lectura = Column(Date)
+    autores = relationship("Autor_Libros", back_populates="libro")
