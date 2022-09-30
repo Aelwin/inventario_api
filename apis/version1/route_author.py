@@ -14,7 +14,7 @@ def crear_autor(autor: AuthorCreate, db: Session = Depends(get_db)):
     autor = crearAutor(autor = autor, db = db)
     return autor
 
-@router.get("/{autor_id}", response_model = AuthorShow)
+@router.get("/{autor_id}", response_model = AuthorShow, response_model_by_alias=False)
 def recuperar_autor(autor_id : int, db: Session = Depends(get_db)) :
     autor = recuperarAutor(autor_id, db)
     if not autor:
@@ -22,7 +22,7 @@ def recuperar_autor(autor_id : int, db: Session = Depends(get_db)) :
             detail=f"No existe ningún autor con el id {autor_id}")
     return autor
 
-@router.get("/", response_model = List[AuthorShow])
+@router.get("/", response_model = List[AuthorShow], response_model_by_alias=False)
 def recuperar_autores(db: Session = Depends(get_db)) :
     return recuperarAutores(db)
 

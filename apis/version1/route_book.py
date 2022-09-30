@@ -15,7 +15,7 @@ def crear_libro(libro: BookCreate, db: Session = Depends(get_db)):
     libro = crearLibro(libro = libro, db = db)
     return libro
 
-@router.get("/{libro_id}", response_model = BookShow)
+@router.get("/{libro_id}", response_model = BookShow, response_model_by_alias=False)
 def recuperar_libro(libro_id : int, db: Session = Depends(get_db)) :
     libro = recuperarLibro(libro_id, db)
     if not libro:
@@ -23,7 +23,7 @@ def recuperar_libro(libro_id : int, db: Session = Depends(get_db)) :
             detail=f"No existe ningún libro con el id {libro_id}")
     return libro
 
-@router.get("/", response_model = List[BookShow])
+@router.get("/", response_model = List[BookShow], response_model_by_alias=False)
 def recuperar_libros(db: Session = Depends(get_db)) :
     return recuperarLibros(db)
 
