@@ -1,16 +1,16 @@
 from datetime import date
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from core.enums.enums import Formato, Idioma
-from schemas.author import AuthorShow
+from .author_and_book import BookResumeShow, AuthorResumeShow
 
-class BookBase(BaseModel) :
+class BookBase(BookResumeShow) :
     titulo: str
     propietario: str
     formato: Formato
     idioma: Idioma
-    autores: List[AuthorShow]
+    #autores: List[AuthorShow]
 
 class BookCreate(BookBase):
     precio: float | None
@@ -26,8 +26,7 @@ class BookCreate(BookBase):
     fecha_inicio_lectura: date | None
     fecha_fin_lectura: date | None
 
-class BookShow(BookBase) :
-    id: int    
+class BookShow(BookResumeShow):
     precio: Optional[float]   
     isbn: Optional[str]
     sinopsis: Optional[str]
@@ -40,11 +39,4 @@ class BookShow(BookBase) :
     valoracion: Optional[int]
     fecha_inicio_lectura: Optional[date]
     fecha_fin_lectura: Optional[date]
-
-    class Config():  #tells pydantic to convert even non dict obj to json
-        orm_mode = True
-        allow_population_by_field_name = True
-
-class BookResumeShow(BaseModel):
-    id: int
-    titulo: str
+    autores: List[AuthorResumeShow]

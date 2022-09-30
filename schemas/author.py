@@ -1,11 +1,10 @@
-from pydantic import BaseModel
+from typing import List
+from pydantic import BaseModel, Field
+
+from .author_and_book import AuthorResumeShow, BookResumeShow
 
 class AuthorCreate(BaseModel):
     nombre: str
 
-class AuthorShow(BaseModel):
-    id: int
-    nombre : str 
-
-    class Config():  #tells pydantic to convert even non dict obj to json
-        orm_mode = True
+class AuthorShow(AuthorResumeShow):
+    libros: List[BookResumeShow] 
