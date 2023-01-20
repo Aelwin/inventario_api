@@ -1,5 +1,6 @@
 **/__pycache__/**
 .env
+.deta
 venv
 test_db.db
 sql_app.db
