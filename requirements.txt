@@ -1,9 +1,10 @@
 fastapi
-uvicorn
+#uvicorn # Solo hace falta en local
 
 #for database
-sqlalchemy         
-psycopg2
+sqlalchemy     
+#psycopg2 En local uso este. En Deta da error y necesito el otro    
+psycopg2-binary
 
 #for loading environment variables
 python-dotenv
