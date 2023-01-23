@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 
 from db.base_class import Base
 from db.models.autor_libros import Autor_Libros
+from schemas.book import BookCreate
 
 class Libro(Base):
     id = Column(Integer, primary_key = True, index = True)
@@ -23,3 +24,11 @@ class Libro(Base):
     fecha_inicio_lectura = Column(Date)
     fecha_fin_lectura = Column(Date)
     autores = relationship("Autor_Libros", back_populates="libro")
+
+def libroFromBookCreate(book: BookCreate):
+    libro = Libro(**book.dict(exclude={'autores'}))
+    autores = []
+    for autor in book.autores:
+        autores.append(Autor_Libros(autor_id = autor.id))
+    libro.autores = autores
+    return libro

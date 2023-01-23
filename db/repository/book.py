@@ -1,10 +1,10 @@
 from sqlalchemy.orm import Session
 
-from db.models.book import Libro
+from db.models.book import Libro, libroFromBookCreate
 from schemas.book import BookCreate
 
-def crearLibro(libro: BookCreate, db: Session) :
-    libro = Libro(**libro.dict())
+def crearLibro(libro: BookCreate, db: Session):
+    libro = libroFromBookCreate(libro)
     db.add(libro)
     db.commit()
     db.refresh(libro)

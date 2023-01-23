@@ -27,6 +27,7 @@ class BookCreate(BaseModel):
     valoracion: Optional[int]
     fecha_inicio_lectura: Optional[date]
     fecha_fin_lectura: Optional[date]
+    autores: List[AuthorResumeShow]
 
 class BookShow(BookResumeShow):
     precio: Optional[float]   
