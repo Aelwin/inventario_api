@@ -10,35 +10,34 @@ from db.repository.book import crearLibro, recuperarLibro, recuperarLibros, actu
 
 router = APIRouter()
 
-@router.post("/crear/")
+def notFoundException(id):
+    return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Libro con id {id} no encontrado")
+
+@router.post("/", status_code = status.HTTP_201_CREATED)
 def crear_libro(libro: BookCreate, db: Session = Depends(get_db)):
-    libro = crearLibro(libro = libro, db = db)
+    libro = crearLibro(libro, db)
     return libro
 
 @router.get("/{libro_id}", response_model = BookShow, response_model_by_alias=False)
-def recuperar_libro(libro_id : int, db: Session = Depends(get_db)) :
+def recuperar_libro(libro_id : int, db: Session = Depends(get_db)):
     libro = recuperarLibro(libro_id, db)
     if not libro:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"No existe ningún libro con el id {libro_id}")
+        raise notFoundException(libro_id)
     return libro
 
 @router.get("/", response_model = List[BookShow], response_model_by_alias=False)
-def recuperar_libros(db: Session = Depends(get_db)) :
+def recuperar_libros(db: Session = Depends(get_db)):
     return recuperarLibros(db)
 
-@router.put("/actualizar/{libro_id}")
-def actualizar_libro(libro_id: int, book: BookCreate, db: Session = Depends(get_db)) :
-    message = actualizarLibro(libro_id = libro_id, libro = book, db = db)
+@router.put("/{libro_id}", response_model = BookShow)
+def actualizar_libro(libro_id: int, book: BookCreate, db: Session = Depends(get_db)):
+    message = actualizarLibro(libro_id, book, db)
     if not message:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Libro con id {libro_id} no encontrado")
-    return {"msg":"Libro actualizado correctamente."}
+        raise notFoundException(libro_id)
+    return recuperarLibro(libro_id, db)
 
-@router.delete("/eliminar/{libro_id}")
-def eliminar_libro(libro_id: int, db: Session = Depends(get_db)) :
-    message = eliminarLibro(libro_id = libro_id, db = db)
+@router.delete("/{libro_id}", status_code=status.HTTP_204_NO_CONTENT)
+def eliminar_libro(libro_id: int, db: Session = Depends(get_db)):
+    message = eliminarLibro(libro_id, db)
     if not message:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Libro con id {libro_id} no encontrado")
-    return {"msg":"Libro eliminado correctamente."}
+        raise notFoundException(libro_id)
