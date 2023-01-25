@@ -18,8 +18,5 @@ class Settings:
 
     RUTA_LIBROS: str = "/libros"
     RUTA_AUTORES: str = "/autores"
-    RUTA_CREAR: str = "/crear"
-    RUTA_ACTUALIZAR: str = "/actualizar"
-    RUTA_ELIMINAR: str = "/eliminar"
 
 settings = Settings()
