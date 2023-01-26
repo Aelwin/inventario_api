@@ -21,5 +21,8 @@ def get_db() -> Generator:
     try:
         db = SessionLocal()
         yield db
+    except Exception as e:
+        print("No se ha podido establecer conexión con la BBDD")
+        print(e)
     finally:
         db.close()
