@@ -15,6 +15,9 @@ def recuperarAutor(autor_id: int, db: Session) :
 def recuperarAutores(db: Session) :
     return db.query(Autor).all()
 
+def recuperarAutoresPorNombre(autor_nombre: str, db: Session):
+    return db.query(Autor).filter(Autor.nombre.ilike(f"%{autor_nombre}%")).all()
+
 def actualizarAutor(autor_id: int, autor: AuthorCreate, db: Session) :
     existing_author = db.query(Autor).filter(Autor.id == autor_id)
     if not existing_author.first():
