@@ -13,8 +13,11 @@ def crearLibro(libro: BookCreate, db: Session):
 def recuperarLibro(id: int, db: Session):
     return db.query(Libro).filter(Libro.id == id).first()
 
-def recuperarLibros(db: Session) :
+def recuperarLibros(db: Session):
     return db.query(Libro).all()
+
+def recuperarLibrosPorTitulo(libro_titulo: str, db: Session):
+    return db.query(Libro).filter(Libro.titulo.ilike(f"%{libro_titulo}%")).all()
 
 def actualizarLibro(libro_id: int, libro: BookCreate, db: Session) :
     existing_book = db.query(Libro).filter(Libro.id == libro_id)

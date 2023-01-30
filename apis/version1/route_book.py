@@ -6,12 +6,12 @@ from typing import List
 
 from db.session import get_db
 from schemas.book import BookCreate, BookShow
-from db.repository.book import crearLibro, recuperarLibro, recuperarLibros, actualizarLibro, eliminarLibro
+from db.repository.book import *
 
 router = APIRouter()
 
-def notFoundException(id):
-    return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Libro con id {id} no encontrado")
+def notFoundException(propiedad: str, valor: str):
+    return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Libro con {propiedad} '{valor}' no encontrado")
 
 @router.post("/", status_code = status.HTTP_201_CREATED)
 def crear_libro(libro: BookCreate, db: Session = Depends(get_db)):
@@ -28,6 +28,13 @@ def recuperar_libro(libro_id : int, db: Session = Depends(get_db)):
 @router.get("/", response_model = List[BookShow], response_model_by_alias=False)
 def recuperar_libros(db: Session = Depends(get_db)):
     return recuperarLibros(db)
+
+@router.get("/titulo/{libro_titulo}", response_model = List[BookShow], response_model_by_alias=False)
+def recuperar_libros_titulo(libro_titulo : str, db: Session = Depends(get_db)) :
+    libros = recuperarLibrosPorTitulo(libro_titulo, db)
+    if not libros:
+        raise notFoundException('titulo', libro_titulo)
+    return libros
 
 @router.put("/{libro_id}", response_model = BookShow)
 def actualizar_libro(libro_id: int, book: BookCreate, db: Session = Depends(get_db)):
