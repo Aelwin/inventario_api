@@ -18,5 +18,6 @@ class Settings:
 
     RUTA_LIBROS: str = "/libros"
     RUTA_AUTORES: str = "/autores"
+    RUTA_LECTURAS: str = "/lecturas"
 
 settings = Settings()
