@@ -3,7 +3,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 
 from core.enums.enums import Formato, Idioma
-from .reading import ReadingShow
+from .reading import ReadingShowFromBook
 from .author_and_book import BookResumeShow, AuthorResumeShow
 
 class BookBase(BookResumeShow):
@@ -44,4 +44,4 @@ class BookShow(BookResumeShow):
     fecha_inicio_lectura: Optional[date]
     fecha_fin_lectura: Optional[date]
     autores: List[AuthorResumeShow]
-    lecturas: List[ReadingShow]
+    lecturas: List[ReadingShowFromBook]
