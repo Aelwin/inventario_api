@@ -22,7 +22,7 @@ def crear_libro(libro: BookCreate, db: Session = Depends(get_db)):
 def recuperar_libro(libro_id : int, db: Session = Depends(get_db)):
     libro = recuperarLibro(libro_id, db)
     if not libro:
-        raise notFoundException(libro_id)
+        raise notFoundException('id', libro_id)
     return libro
 
 @router.get("/", response_model = List[BookShow], response_model_by_alias=False)
