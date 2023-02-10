@@ -43,7 +43,7 @@ def test_get_book_by_id_not_exist(client) :
     id = 999
     response = client.get(f"{settings.RUTA_LIBROS}/{id}")
     assert response.status_code == status.HTTP_404_NOT_FOUND
-    assert response.json()["detail"] == f"Libro con id {id} no encontrado"
+    assert response.json()["detail"] == f"Libro con id '{id}' no encontrado"
 
 def test_get_all_books(client) :
     response = client.get("/libros/")

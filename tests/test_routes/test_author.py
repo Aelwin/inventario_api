@@ -26,7 +26,7 @@ def test_get_author_by_id_not_exist(client) :
     id = 999
     response = client.get(f"{settings.RUTA_AUTORES}/{id}")
     assert response.status_code == status.HTTP_404_NOT_FOUND
-    assert response.json()["detail"] == f"Autor con id {id} no encontrado"
+    assert response.json()["detail"] == f"Autor con id '{id}' no encontrado"
 
 def test_get_all_authors(client) :
     response = client.get(f"{settings.RUTA_AUTORES}/")
