@@ -25,8 +25,8 @@ class Libro(Base):
     valoracion = Column(Integer)
     fecha_inicio_lectura = Column(Date)
     fecha_fin_lectura = Column(Date)
-    autores = relationship("Autor_Libros", back_populates="libro")
-    lecturas = relationship("Lectura", back_populates="libro")
+    autores = relationship("Autor_Libros", back_populates="libro", cascade="save-update, merge, delete-orphan")
+    lecturas = relationship("Lectura", back_populates="libro", cascade="save-update, merge, delete-orphan")
 
 def libroFromBookCreate(book: BookCreate):
     libro = Libro(**book.dict(exclude={'autores'}))
