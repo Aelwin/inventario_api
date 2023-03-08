@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 from core.enums.enums import Formato, Idioma
 from .reading import ReadingShowFromBook
-from .author_and_book import BookResumeShow, AuthorResumeShow
+from .author_and_book import *
 
 class BookBase(BookResumeShow):
     propietario: str
@@ -25,10 +25,7 @@ class BookCreate(BaseModel):
     observaciones: Optional[str]
     categoria: Optional[str]
     saga: Optional[str]
-    valoracion: Optional[int]
-    fecha_inicio_lectura: Optional[date]
-    fecha_fin_lectura: Optional[date]
-    autores: List[AuthorResumeShow]
+    autores: List[AuthorFromBookCreate]
 
 class BookShow(BookResumeShow):
     precio: Optional[float]   
