@@ -28,6 +28,7 @@ class BookCreate(BaseModel):
     autores: List[AuthorFromBookCreate]
 
 class BookShow(BookResumeShow):
+    propietario: Optional[str]
     precio: Optional[float]   
     isbn: Optional[str]
     sinopsis: Optional[str]
