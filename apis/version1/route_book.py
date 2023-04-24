@@ -6,7 +6,9 @@ from typing import List
 
 from db.session import get_db
 from schemas.book import BookCreate, BookShow
+from schemas.reading import ReadingShow
 from db.repository.book import *
+from db.repository.reading import recuperarLecturasPorLibro
 
 router = APIRouter()
 
@@ -48,3 +50,10 @@ def eliminar_libro(libro_id: int, db: Session = Depends(get_db)):
     message = eliminarLibro(libro_id, db)
     if not message:
         raise notFoundException(libro_id)
+
+@router.get("/{libro_id}/lecturas", response_model= List[ReadingShow], response_model_by_alias=False)
+def recuperar_lecturas(libro_id: int, db: Session = Depends(get_db)):
+    lecturas = recuperarLecturasPorLibro(libro_id, db)
+    if not lecturas:
+        raise notFoundException('id', libro_id)    
+    return lecturas

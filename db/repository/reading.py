@@ -38,3 +38,6 @@ def actualizarLecturaParcial(lectura_id: int, reading: ReadingPatch, db: Session
     existing_reading.update(reading.dict(exclude_unset=True))
     db.commit()
     return 1
+
+def recuperarLecturasPorLibro(libro_id: int, db: Session):
+    return db.query(Lectura).filter(Lectura.libro_id == libro_id).all()
