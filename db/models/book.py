@@ -22,9 +22,6 @@ class Libro(Base):
     formato = Column(String, nullable = False)
     idioma = Column(String, nullable = False)
     saga = Column(String)
-    valoracion = Column(Integer)
-    fecha_inicio_lectura = Column(Date)
-    fecha_fin_lectura = Column(Date)
     autores = relationship("Autor_Libros", back_populates="libro", cascade="save-update, merge, delete-orphan")
     lecturas = relationship("Lectura", back_populates="libro", cascade="save-update, merge, delete-orphan")
 

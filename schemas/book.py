@@ -38,8 +38,5 @@ class BookShow(BookResumeShow):
     observaciones: Optional[str]
     categoria: Optional[str]
     saga: Optional[str]
-    valoracion: Optional[int]
-    fecha_inicio_lectura: Optional[date]
-    fecha_fin_lectura: Optional[date]
     autores: List[AuthorResumeShow]
     lecturas: List[ReadingShowFromBook]
