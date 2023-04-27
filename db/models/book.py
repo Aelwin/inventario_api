@@ -22,8 +22,8 @@ class Libro(Base):
     formato = Column(String, nullable = False)
     idioma = Column(String, nullable = False)
     saga = Column(String)
-    autores = relationship("Autor_Libros", back_populates="libro", cascade="save-update, merge, delete-orphan")
-    lecturas = relationship("Lectura", back_populates="libro", cascade="save-update, merge, delete-orphan")
+    autores = relationship("Autor_Libros", back_populates="libro", cascade="save-update, merge, delete, delete-orphan")
+    lecturas = relationship("Lectura", back_populates="libro", cascade="save-update, merge, delete, delete-orphan")
 
 def libroFromBookCreate(book: BookCreate):
     libro = Libro(**book.dict(exclude={'autores'}))
